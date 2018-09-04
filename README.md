@@ -37,6 +37,10 @@ Another great feature of Divy is the ability to create groups. Each user in a gr
 4. Users can create groups with other users and add to a pool of Divy Dollars for shared purchases
 5. Users can edit and delete groups
 
+## Code Snippet:
+
+`const test = 5`
+
 ## Technologies:
 
 1. Rails - Back-end Dev
