@@ -39,11 +39,10 @@ Another great feature of Divy is the ability to create groups. Each user in a gr
 
 ## Technologies:
 
-1. Ruby
-2. Rails
-3. React.js
-4. Google Draw
-5. Node.js
+1. Rails - Back-end Dev
+2. React.js - Front-end Dev
+3. Google Draw - ERD Planning
+4. Adobe XD - Wireframing
 
 ## Created By:
 
