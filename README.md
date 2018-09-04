@@ -12,9 +12,23 @@ There's multiple ways to conduct transactions:
 
 Another great feature of Divy is the ability to create groups. Each user in a group will receive a Divy card (which is also available for personal use) and can complete transactions so long as the group authorizes the spend.
 
+## User Stories:
 
+1. I have four siblings and use Divy to split costs spent on family, entertainment and holiday events
+2. I have a significant other and wish to split finances without creating a joint bank account
+3. I have a group of active friends that frequently visit restaurants and bars and wish to split bills in real-time
+4. I travel with friends and wish to split expenses fast and efficiently to avoid cash reconciliations post travel
+5. I'm starting a business and split expenses with my partner 50/50 so we need a group account with a credit card
+6. I have roommates and we would like to split apartment expenses evenly with minimal hassle
 
 ## ERD:
 
+![Divy DB Tables](https://user-images.githubusercontent.com/34017019/45039959-d39dfd00-b032-11e8-922d-2b236b39a4cf.png)
+
+## Wireframe:
 
 
+
+## Created By:
+
+Shawn Hassen
