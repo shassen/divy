@@ -27,7 +27,7 @@ Another great feature of Divy is the ability to create groups. Each user in a gr
 
 ## Wireframe:
 
-<img width="873" alt="screen shot 2018-09-04 at 12 37 38 pm" src="https://user-images.githubusercontent.com/34017019/45044906-66dd2f80-b03f-11e8-96a1-500af6a8c155.png">
+
 
 ## MVP:
 
