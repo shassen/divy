@@ -29,6 +29,14 @@ Another great feature of Divy is the ability to create groups. Each user in a gr
 
 
 
+## MVP:
+
+1. Users can register and create an account that can be updated in the future if necessary
+2. Users can add Divy Dollars to their wallet or connect a bank account for transactions
+3. Users can create transactions to split amongst other users
+4. Users can create groups with other users and add to a pool of Divy Dollars for shared purchases
+5. Users can edit and delete groups
+
 ## Created By:
 
 Shawn Hassen
