@@ -23,7 +23,7 @@ Another great feature of Divy is the ability to create groups. Each user in a gr
 
 ## ERD:
 
-![Divy DB Tables](https://user-images.githubusercontent.com/34017019/45039959-d39dfd00-b032-11e8-922d-2b236b39a4cf.png)
+![Divy DB Tables]<img width="679" alt="screen shot 2018-09-04 at 3 48 49 pm" src="https://user-images.githubusercontent.com/34017019/45054132-13c4a600-b05a-11e8-865c-4e804ec1364b.png">
 
 ## Wireframe:
 
