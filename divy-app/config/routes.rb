@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
-  resources :users
+  resources :users do
+    resources :groups do
+      resources :transactions
+    end
+    resources :transactions
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

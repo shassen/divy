@@ -21,3 +21,11 @@ Transaction.create!([
 Group.create!([
     {name: "Home", wallet: 700, description: "Share all purchases between us"}
 ])
+
+Group_User.create!([
+    {user_id: 1, group_id: 1, admin: true, approved: false}
+])
+
+Transaction_user.create!([
+    {user_id: 1, transaction_id: 1, admin: true, approved: false}
+])
