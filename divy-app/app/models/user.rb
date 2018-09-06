@@ -1,5 +1,7 @@
 class User < ApplicationRecord
     has_secure_password
-    has_and_belongs_to_many :transactions, optional: true
-    has_and_belongs_to_many :groups, optional: true
+    has_many :groups_users
+    has_many :groups, through: :groups_users
+    has_many :transactions_users
+    has_many :transactions, through: :transactions_users
 end
