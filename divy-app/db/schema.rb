@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_05_234319) do
+ActiveRecord::Schema.define(version: 2018_09_06_001024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 2018_09_05_234319) do
   create_table "groups_users", id: false, force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "group_id", null: false
+    t.boolean "admin"
+    t.boolean "approved"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -42,6 +44,8 @@ ActiveRecord::Schema.define(version: 2018_09_05_234319) do
   create_table "transactions_users", id: false, force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "transaction_id", null: false
+    t.boolean "admin"
+    t.boolean "approved"
   end
 
   create_table "users", force: :cascade do |t|
