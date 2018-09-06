@@ -7,19 +7,19 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.delete_all
-# Group.delete_all
-# Transaction.delete_all
+Group.delete_all
+Transaction.delete_all
 
 User.create!([
     {first_name: "test", last_name: "test", username: "testy", wallet: 100, email: "testy@test.com", password: "test", password_confirmation: "test", admin: true}
 ])
 
-Transaction.create!([
-    {amount: 350, location: "BestBuy", description: "Purchased a wireless router for apartment", approved: true}
-])
-
 Group.create!([
     {name: "Home", wallet: 700, description: "Share all purchases between us"}
+])
+
+Transaction.create!([
+    {amount: 350, location: "BestBuy", description: "Purchased a wireless router for apartment", approved: true}
 ])
 
 Group_User.create!([
@@ -29,3 +29,4 @@ Group_User.create!([
 Transaction_user.create!([
     {user_id: 1, transaction_id: 1, admin: true, approved: false}
 ])
+
