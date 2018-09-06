@@ -1,15 +1,18 @@
 class TransactionsController < ApplicationController
 
     def index
-        render json: { message: "I show all transactions" }
+        @txns = Transaction.all
+        render json: { txn: @txns }
     end
 
     def show
-        render json: { message: "I show one transaction" }
+        @txn = Transaction.find(params[:id])
+        render json: { txn: @txn }
     end
 
     def create
-        render json: { message: "I create transactions" }
+        @new_txn = Transaction.new(txn_params)
+        render json: { txn: @new_txn.save }
     end
 
     def update
@@ -18,6 +21,24 @@ class TransactionsController < ApplicationController
 
     def destroy
         render json: { message: "I delete transactions" }
+    end
+
+    private
+    # def group_id
+    #     @group_id = params[:group_id]
+    # end
+
+    def txn_params
+        txn_params
+            .require(:data)
+            .require(:attributes)
+            .permit(
+                :amount,
+                :location,
+                :description,
+                :approved,
+                :group_id
+            )
     end
 
 

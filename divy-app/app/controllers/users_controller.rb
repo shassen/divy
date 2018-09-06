@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
+  # before_action 
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
   def index
     @users = User.all
+    puts current_user.inspect
 
     render json: @users
   end

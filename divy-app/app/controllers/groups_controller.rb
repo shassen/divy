@@ -1,15 +1,18 @@
 class GroupsController < ApplicationController
 
     def index
-        render json: { message: "I show all groups" }
+        @groups = Group.all
+        render json: { group: @groups }
     end
 
     def show
-        render json: { message: "I show one group" }
+        @group = Group.find(params[:id])
+        render json: { group: @group }
     end
 
     def create
-        render json: { message: "I create groups" }
+        @new_group = Group.new(group_params)
+        render json: { group: @new_group.save }
     end
 
     def update
@@ -20,5 +23,17 @@ class GroupsController < ApplicationController
         render json: { message: "I delete groups" }
     end
 
+    private
+
+    def group_params
+        params
+            .require(:data)
+            .require(:attributes)
+            .permit(
+                :name,
+                :wallet,
+                :description
+            )
+    end
 
 end
