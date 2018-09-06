@@ -1,2 +1,0 @@
-class TransactionsUsersController < ApplicationController
-end
