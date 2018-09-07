@@ -1,6 +1,6 @@
 class TransactionUsersController < ApplicationController
-    before_action :authenticate_user, only: [:show, :create, :update, :destroy] 
-    before_action :set_user, only: [:show, :create, :update, :destroy]
+    # before_action :authenticate_user, only: [:show, :create, :update, :destroy] 
+    # before_action :set_user, only: [:show, :create, :update, :destroy]
 
     def index
         @user_txns = TransactionUser.all

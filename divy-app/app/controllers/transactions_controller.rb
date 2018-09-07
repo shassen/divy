@@ -1,6 +1,8 @@
 class TransactionsController < ApplicationController
     before_action :authenticate_user, only: [:show, :create, :update, :destroy] 
     before_action :set_user, only: [:show, :update, :destroy]
+    # before_action :authenticate_user!, except: [:new, :create]
+    
 
     # INDEX users/:id/transactions - show all transactions for user
     def index
@@ -42,8 +44,15 @@ class TransactionsController < ApplicationController
         # else
         #     @new_txn = current_user.transactions.create!(txn_params)
         # end
-            
-        current_user.transactions.create!(txn_params)
+        @txn_id = TransactionUser.where(transaction_id: params[:data][:attributes][:id])
+        if @txn_id
+            @new_txn = TransactionUser.create!(txn_user_params)
+        else
+            @new_txn = current_user.transactions.create!(txn_params)
+        end
+        
+        # current_user.transaction_users.create!(txn_user_params)
+        # current_user.transactions.create!(txn_params)
         render json: { txn: "Transaction created" }
     end
 
