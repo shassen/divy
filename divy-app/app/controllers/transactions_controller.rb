@@ -1,35 +1,60 @@
 class TransactionsController < ApplicationController
+    before_action :authenticate_user, only: [:show, :create, :update, :destroy] 
+    before_action :set_user, only: [:show, :update, :destroy]    
 
+    # INDEX users/:id/transactions - show all transactions for user
     def index
-        @txns = Transaction.all
+        @txns = current_user.transactions
         render json: { txn: @txns }
     end
 
+    # SHOW users/:id/transactions/:id - show one transaction
     def show
-        @txn = Transaction.find(params[:id])
-        render json: { txn: @txn }
+        @txn = current_user.transactions.find(params[:id])
+        render json: { txn: @txn }, include: :users
     end
 
+    # CREATE users/:id/transactions - create transactions
+    # Conditional stmt to create a row on the transaction_users table
     def create
-        @new_txn = Transaction.new(txn_params)
-        render json: { txn: @new_txn.save }
+
+        @txn_id = params[:data][:attributes][:transaction_id]
+        if @txn_id
+            @new_txn = TransactionUser.create!(txn_user_params)
+        else
+            @new_txn = current_user.transactions.create!(txn_params)
+        end
+
+        render json: { txn: "Transaction created" }
+
     end
 
+    # UPDATE users/:id/transactions/:id - update a transaction
     def update
-        render json: { message: "I update transactions" }
+        @update_txn = current_user.transactions.find(params[:id]).update(txn_params)
+        render json: { txn: @update_txn }
     end
 
+    # DELETE users/:id/transactions/:id - destroy transactions
     def destroy
-        render json: { message: "I delete transactions" }
+        @txn = current_user.transactions.find(params[:id]).destroy
+        render json: { message: "Transaction #{params[:id]} has been destroyed" }
     end
 
     private
-    # def group_id
-    #     @group_id = params[:group_id]
+
+    # def set_group
+    #     if params[:group_id]
+    #         @group = Group.find(params[:group_id])
+    #     end
     # end
 
+    def set_user
+        @user = User.find(params[:user_id])
+    end
+
     def txn_params
-        txn_params
+        params
             .require(:data)
             .require(:attributes)
             .permit(
@@ -41,5 +66,14 @@ class TransactionsController < ApplicationController
             )
     end
 
+    def txn_user_params
+        params
+            .require(:data)
+            .require(:attributes)
+            .permit(
+                :user_id,
+                :transaction_id
+            )
+    end
 
 end
