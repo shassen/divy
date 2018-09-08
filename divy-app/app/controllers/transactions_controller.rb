@@ -5,7 +5,7 @@ class TransactionsController < ApplicationController
     # INDEX users/:id/transactions - show all transactions for user
     def index
         @txns = current_user.transactions
-        render json: { txn: @txns }
+        render json: { txn: @txns }, include: :users
     end
 
     # SHOW users/:id/transactions/:id - show one transaction
