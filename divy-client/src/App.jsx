@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
-  getTransactions } from './services/api';
+  getTransactions,
+  getUser } from './services/api';
 import Header from './components/Header';
 import Login from './components/Login';
 import Homepage from './components/Homepage';
@@ -26,27 +27,20 @@ class App extends Component {
       selectedJuiceId: null,
       isRegister: false,
     })
-    this.logout = this.logout.bind(this)
-    this.isLoggedIn = this.isLoggedIn.bind(this)
-    // this.handleChange = this.handleChange.bind(this)
-    this.cancel = this.cancel.bind(this)
-    this.showRegisterForm = this.showRegisterForm.bind(this)
-    this.register = this.register.bind(this)
-    this.login = this.login.bind(this)
+    this.logout = this.logout.bind(this);
+    this.isLoggedIn = this.isLoggedIn.bind(this);
+    this.showRegisterForm = this.showRegisterForm.bind(this);
+    this.register = this.register.bind(this);
+    this.login = this.login.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleView = this.handleView.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   //------------------------- AUTH Functions ------------------------//
   // references:
   // https://medium.com/@nick.hartunian/knock-jwt-auth-for-rails-api-create-react-app-6765192e295a
   // JZ react-rails-token-auth repo
-  // cancel() {
-  //   this.setState({
-  //     name: '',
-  //     sugar: '',
-  //     isEdit: false,
-  //     selectedJuiceId: null,
-  //   })
-  // }
 
   showRegisterForm() {
     this.setState({
@@ -85,9 +79,26 @@ class App extends Component {
       .then(res => localStorage.setItem("jwt", res.jwt))
       .then(() => this.setState({
         isLoggedIn: true,
+        currentView: 'Homepage',
       }))
       .catch(err => console.log(err))
+    // const userUrl = `${BASE_URL}/users`;
+    // fetch(userUrl)
+    //   .then(resp => console.log(resp.json()))
+    
   }
+
+  // getUser() {
+  //   const userUrl = `${BASE_URL}/users`;
+  //   const token = !!(localStorage.getItem("jwt"))
+  //   const opts = {
+  //     method: 'GET',
+  //     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+  //     mode: 'cors',
+  //   }
+  //   fetch(userUrl, opts)
+  //     .then(resp => console.log(resp.json()))
+  // }
 
   isLoggedIn() {
     const res = !!(localStorage.getItem("jwt"));
@@ -101,9 +112,9 @@ class App extends Component {
     localStorage.removeItem("jwt")
     this.setState({
       isLoggedIn: false,
-      juices: [],
       name: "",
       email: "",
+      currentView: 'Login',
     })
   }
   //----------------------- END OF AUTH ----------------------//
@@ -114,16 +125,17 @@ class App extends Component {
 
     switch(currentView) {
       case 'Login':
-      return <Login handleChange={this.handleChange}
-          login={this.login}
-          logout={this.logout}
-          email={this.state.email}
-          password={this.state.password}
-          isRegister={this.state.isRegister}
-          register={this.register}
+      return <Login onChange={this.handleChange}
+                    login={this.login}
+                    logout={this.logout}
+                    email={this.state.email}
+                    password={this.state.password}
+                    isRegister={this.state.isRegister}
+                    register={this.register}
         />;
       case 'Homepage':
-      return <Homepage />;
+      return <Homepage  username={this.state.username}
+                        email={this.state.email} />;
       case 'OptionPage':
       return <OptionPage />;
       case 'Profile':
@@ -143,16 +155,39 @@ class App extends Component {
     })
   }
 
+  // handleSubmit(e) {
+    
+  // }
+
+  handleView(links) {
+    this.setState({
+      currentView: links,
+    })
+  }
+
   render() {
 
     const links = [
-      ''
+      'Homepage',
+      'Profile',
+      'PendingApproval'
     ]
 
     return (
       <div className="App">
-      <Header />
-      <Login />
+      <Header onClick={this.handleView} 
+              links={links}
+              logout={this.logout} />
+
+      {/* <Login  login={this.login}
+              logout={this.logout}
+              email={this.state.email}
+              password={this.state.password}
+              isRegister={this.state.isRegister}
+              register={this.register}
+              onChange={this.handleChange} /> */}
+
+      {this.determineWhichToRender()}
       </div>
     );
   }

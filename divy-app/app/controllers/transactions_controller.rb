@@ -4,6 +4,7 @@ class TransactionsController < ApplicationController
 
     # INDEX users/:id/transactions - show all transactions for user
     def index
+        puts current_user.inspect
         @txns = current_user.transactions
         render json: { txn: @txns }, include: :users
     end
@@ -62,7 +63,7 @@ class TransactionsController < ApplicationController
                 :location,
                 :description,
                 :approved,
-                :group_id
+                :group_id,
             )
     end
 

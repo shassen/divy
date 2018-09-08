@@ -5,7 +5,9 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.all
-    render json: @users
+    # @users = User.where(email: params[:auth][:email])
+    # @users = User.where(email: params[:user][:email])
+    render json: { users: @users }
   end
 
   # GET /users/1

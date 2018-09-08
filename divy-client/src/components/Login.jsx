@@ -10,7 +10,7 @@ function Login(props) {
             <br />
             <input
                 name="email"
-                onChange={props.handleChange}
+                onChange={props.onChange}
                 value={props.email.value}
                 type="email"
             />
@@ -19,7 +19,7 @@ function Login(props) {
             <br />
             <input
                 name="password"
-                onChange={props.handleChange}
+                onChange={props.onChange}
                 value={props.password.value}
                 type="password"
             />
