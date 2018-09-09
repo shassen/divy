@@ -1,11 +1,13 @@
 class TransactionsController < ApplicationController
     before_action :authenticate_user, only: [:show, :create, :update, :destroy] 
-    before_action :set_user, only: [:show, :update, :destroy]    
+    before_action :set_user, only: [:index, :show, :update, :destroy]    
 
     # INDEX users/:id/transactions - show all transactions for user
     def index
-        puts current_user.inspect
+        
+        # puts current_user.inspect
         @txns = current_user.transactions
+        # @txns = TransactionUser.where(user_id: params[:user_id])
         render json: { txn: @txns }, include: :users
     end
 

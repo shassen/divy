@@ -28,7 +28,7 @@ class App extends Component {
       isRegister: false,
     })
     this.logout = this.logout.bind(this);
-    this.isLoggedIn = this.isLoggedIn.bind(this);
+    // this.isLoggedIn = this.isLoggedIn.bind(this);
     this.showRegisterForm = this.showRegisterForm.bind(this);
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
@@ -45,9 +45,13 @@ class App extends Component {
   findUserId() {
     const jwt = localStorage.getItem('jwt')
     const decoded = jwtDecode(jwt)
-    this.setState({
-      user_id: decoded.sub
-    })
+    const userId = decoded.sub
+    // this.setState({
+    //   user_id: decoded.sub
+    // })
+    console.log(userId)
+    getUser(userId)
+      .then(data => this.setState({ user: data }))
   }
 
   showRegisterForm() {
@@ -69,6 +73,7 @@ class App extends Component {
       .then(res => res.json())
       .then(this.setState({
         isRegister: false,
+
       }))
       .catch(err => err.message)
   }
@@ -85,24 +90,24 @@ class App extends Component {
     fetch(url, init)
       .then(res => res.json())
       .then(res => localStorage.setItem("jwt", res.jwt))
+      .then(this.findUserId())
       .then(() => this.setState({
         isLoggedIn: true,
         currentView: 'Homepage',
       }))
-      .then(this.findUserId())
+      
       // .then(getUser(this.state.user_id))
       // .then(data => this.setState({ user: data }))
       .catch(err => console.log(err))
   }
 
-
-  isLoggedIn() {
-    const res = !!(localStorage.getItem("jwt"));
-    this.setState({
-      isLoggedIn: res,
-    })
-    return res;
-  }
+  // isLoggedIn() {
+  //   const res = !!(localStorage.getItem("jwt"));
+  //   this.setState({
+  //     isLoggedIn: res,
+  //   })
+  //   return res;
+  // }
 
   logout() {
     localStorage.removeItem("jwt")
@@ -134,7 +139,8 @@ class App extends Component {
       case 'Homepage':
       return <Homepage  username={this.state.username}
                         email={this.state.email} 
-                        id={this.state.user_id}/>;
+                        id={this.state.user_id}
+                        user={this.state.user}/>;
       case 'OptionPage':
       return <OptionPage />;
       case 'Profile':
@@ -176,15 +182,8 @@ class App extends Component {
       <div className="App">
       <Header onClick={this.handleView} 
               links={links}
-              logout={this.logout} />
-
-      {/* <Login  login={this.login}
               logout={this.logout}
-              email={this.state.email}
-              password={this.state.password}
-              isRegister={this.state.isRegister}
-              register={this.register}
-              onChange={this.handleChange} /> */}
+              user={this.state.user} />
 
       {this.determineWhichToRender()}
       </div>
