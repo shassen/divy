@@ -8,21 +8,22 @@ class Homepage extends Component {
     super(props);
     this.state = {
       username: '',
-      user_id: null,
+      user_id: this.props.id,
       email: this.props.email,
       users: []
     }
   }
 
   componentDidMount() {
-    getUser()
+    getUser(this.props.id)
+      .then(data => this.setState({ user: data }))
   }
 
   render() {
 
     return (
       <div className="App">
-      <h1>Welcome {this.props.email}</h1> 
+      <h1>Welcome {this.state.email}</h1> 
         {/* <button onClick={}></button> */}
       </div>
     )

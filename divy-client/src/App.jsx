@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import jwtDecode from 'jwt-decode';
 import {
   getTransactions,
   getUser } from './services/api';
@@ -24,7 +25,6 @@ class App extends Component {
       password: '',
       isLoggedIn: null,
       isEdit: false,
-      selectedJuiceId: null,
       isRegister: false,
     })
     this.logout = this.logout.bind(this);
@@ -32,6 +32,7 @@ class App extends Component {
     this.showRegisterForm = this.showRegisterForm.bind(this);
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
+    this.findUserId = this.findUserId.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleView = this.handleView.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,6 +42,13 @@ class App extends Component {
   // references:
   // https://medium.com/@nick.hartunian/knock-jwt-auth-for-rails-api-create-react-app-6765192e295a
   // JZ react-rails-token-auth repo
+  findUserId() {
+    const jwt = localStorage.getItem('jwt')
+    const decoded = jwtDecode(jwt)
+    this.setState({
+      user_id: decoded.sub
+    })
+  }
 
   showRegisterForm() {
     this.setState({
@@ -81,24 +89,12 @@ class App extends Component {
         isLoggedIn: true,
         currentView: 'Homepage',
       }))
+      .then(this.findUserId())
+      // .then(getUser(this.state.user_id))
+      // .then(data => this.setState({ user: data }))
       .catch(err => console.log(err))
-    // const userUrl = `${BASE_URL}/users`;
-    // fetch(userUrl)
-    //   .then(resp => console.log(resp.json()))
-    
   }
 
-  // getUser() {
-  //   const userUrl = `${BASE_URL}/users`;
-  //   const token = !!(localStorage.getItem("jwt"))
-  //   const opts = {
-  //     method: 'GET',
-  //     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-  //     mode: 'cors',
-  //   }
-  //   fetch(userUrl, opts)
-  //     .then(resp => console.log(resp.json()))
-  // }
 
   isLoggedIn() {
     const res = !!(localStorage.getItem("jwt"));
@@ -114,6 +110,8 @@ class App extends Component {
       isLoggedIn: false,
       name: "",
       email: "",
+      user_id: "",
+      password: "",
       currentView: 'Login',
     })
   }
@@ -135,7 +133,8 @@ class App extends Component {
         />;
       case 'Homepage':
       return <Homepage  username={this.state.username}
-                        email={this.state.email} />;
+                        email={this.state.email} 
+                        id={this.state.user_id}/>;
       case 'OptionPage':
       return <OptionPage />;
       case 'Profile':
