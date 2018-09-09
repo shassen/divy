@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import jwtDecode from 'jwt-decode';
 import {
   getTransactions,
-  getUser } from './services/api';
+  getUser,
+  editTransaction,
+  deleteTransaction } from './services/api';
 import Header from './components/Header';
 import Login from './components/Login';
 import Homepage from './components/Homepage';
@@ -10,6 +12,7 @@ import OptionPage from './components/OptionPage';
 import Profile from './components/Profile';
 import NewTxnPage from './components/NewTxnPage';
 import PendingApproval from './components/PendingApproval';
+import EditTxnPage from './components/EditTxnPage';
 import './App.css';
 
 const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000'
@@ -23,6 +26,7 @@ class App extends Component {
       username: '',
       email: '',
       password: '',
+      oneTxn: {},
       isLoggedIn: null,
       isEdit: false,
       isRegister: false,
@@ -35,6 +39,8 @@ class App extends Component {
     this.findUserId = this.findUserId.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleView = this.handleView.bind(this);
+    this.handleEditTransaction = this.handleEditTransaction.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -46,12 +52,11 @@ class App extends Component {
     const jwt = localStorage.getItem('jwt')
     const decoded = jwtDecode(jwt)
     const userId = decoded.sub
-    // this.setState({
-    //   user_id: decoded.sub
-    // })
-    console.log(userId)
     getUser(userId)
-      .then(data => this.setState({ user: data }))
+      .then(data => this.setState({ 
+        user: data,
+        user_id: data.id
+      }))
   }
 
   showRegisterForm() {
@@ -95,9 +100,6 @@ class App extends Component {
         isLoggedIn: true,
         currentView: 'Homepage',
       }))
-      
-      // .then(getUser(this.state.user_id))
-      // .then(data => this.setState({ user: data }))
       .catch(err => console.log(err))
   }
 
@@ -122,6 +124,13 @@ class App extends Component {
   }
   //----------------------- END OF AUTH ----------------------//
 
+  //-------------------- BEGIN CRUD FUNCTIONS ----------------//
+
+
+
+
+  //-------------------- END CRUD FUNCTIONS ------------------//
+
 
   determineWhichToRender() {
     const { currentView } = this.state;
@@ -135,20 +144,25 @@ class App extends Component {
                     password={this.state.password}
                     isRegister={this.state.isRegister}
                     register={this.register}
-        />;
+                    />;
       case 'Homepage':
       return <Homepage  username={this.state.username}
                         email={this.state.email} 
                         id={this.state.user_id}
-                        user={this.state.user}/>;
-      case 'OptionPage':
-      return <OptionPage />;
+                        user={this.state.user}
+                        handleEditTransaction={this.handleEditTransaction}
+                        handleDelete={this.handleDelete}/>;
+      // case 'OptionPage':
+      // return <OptionPage onClick={this.handleView}
+      //                    />;
       case 'Profile':
-      return <Profile />;
+      return <Profile user={this.state.user}/>;
       case 'NewTxnPage':
       return <NewTxnPage />;
       case 'PendingApproval':
       return <PendingApproval />;
+      case 'EditTxnPage':
+      return <EditTxnPage oneTxn={this.state.oneTxn}/>;
     }
   }
 
@@ -170,6 +184,22 @@ class App extends Component {
     })
   }
 
+  handleEditTransaction(data) {
+    // const user_id = this.state.user_id
+    // const transaction_id = data.id
+    // console.log(user_id, transaction_id)
+    this.setState({
+      currentView: 'EditTxnPage',
+      oneTxn: data,
+    })
+  }
+
+  handleDelete(data) {
+    const user_id = this.state.user_id
+    const transaction_id = data.id
+    deleteTransaction()
+  }
+
   render() {
 
     const links = [
@@ -183,7 +213,8 @@ class App extends Component {
       <Header onClick={this.handleView} 
               links={links}
               logout={this.logout}
-              user={this.state.user} />
+              user={this.state.user}
+              loggedIn={this.state.isLoggedIn} />
 
       {this.determineWhichToRender()}
       </div>

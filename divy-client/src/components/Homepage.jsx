@@ -7,9 +7,8 @@ class Homepage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_id: this.props.id,
-      email: this.props.email,
-      users: [],
+      user: this.props.user,
+      txn: [],
     }
   }
 
@@ -21,21 +20,47 @@ class Homepage extends Component {
     }
     getTransactions(this.props.user.id, init)
       .then(data => this.setState({
-        txn: data.txn
+        txn: data.txn,
       }))
   }
 
-  // data => this.setState({ user: data })
   render() {
+    const { txn, user_id } = this.state
 
     return (
       <div className="App">
-      <h1>Welcome {this.props.user.username}</h1> 
-        {/* <button onClick={}></button> */}
+      
+      <div>
+        {
+          txn.map(data => {
+            return(
+            <div>
+              <h1 onClick={() => {
+                this.props.handleEditTransaction(data)
+                }}>{data.location}
+              </h1>
+              <p>{data.description}</p>
+              <p>{data.amount}</p>
+              {
+                data.users.map(user => {
+                  return <span>{user.username} </span>
+                })
+              }
+              <div>
+              <button onClick={() => {
+                this.props.handleDelete(data)
+              }}>Delete Transaction</button>
+              </div>
+              </div>
+            )
+          })
+        }
+      </div>
       </div>
     )
   }
-
+  
 }
 
 export default Homepage
+
