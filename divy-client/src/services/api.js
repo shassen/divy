@@ -19,9 +19,8 @@ function getUser(id) {
 
 // Function: Deletes a transaction
 function deleteTransaction(user_id, transaction_id, init) {
-    console.log('hello')
-    // return fetch(`${BASE_URL}/users/${user_id}/transactions${transaction_id}`, init)
-    //     .then(resp => resp.json())
+    return fetch(`${BASE_URL}/users/${user_id}/transactions/${transaction_id}`, init)
+        .then(resp => resp.json())
 }
 
 // export functions for use in Component classes

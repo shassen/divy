@@ -2,6 +2,7 @@ import React from 'react';
 
 function Header(props) {
     const { links } = props;
+    console.log(props)
     return (
         <div>
             {

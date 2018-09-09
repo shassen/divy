@@ -43,6 +43,7 @@ class App extends Component {
     this.handleDelete = this.handleDelete.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
   }
+  
 
   //------------------------- AUTH Functions ------------------------//
   // references:
@@ -197,7 +198,15 @@ class App extends Component {
   handleDelete(data) {
     const user_id = this.state.user_id
     const transaction_id = data.id
-    deleteTransaction()
+    const jwt = localStorage.getItem('jwt');
+    const init = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${jwt}`, 'Accept': 'application/json' },
+      mode: 'cors'
+    }
+    deleteTransaction(user_id, transaction_id, init)
+      .then(this.setState({ currentView: 'Profile' }))
+      
   }
 
   render() {

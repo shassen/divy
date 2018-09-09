@@ -25,10 +25,12 @@ class Homepage extends Component {
   }
 
   render() {
-    const { txn, user_id } = this.state
+    const { txn } = this.state
 
     return (
       <div className="App">
+
+      <p>Wallet Balance: $ {this.props.user.wallet}</p>
       
       <div>
         {
@@ -39,11 +41,11 @@ class Homepage extends Component {
                 this.props.handleEditTransaction(data)
                 }}>{data.location}
               </h1>
-              <p>{data.description}</p>
-              <p>{data.amount}</p>
+              <p>Description: {data.description}</p>
+              <p>$ {data.amount}</p>
               {
                 data.users.map(user => {
-                  return <span>{user.username} </span>
+                  return <p>Users:<span> {user.username} </span></p>
                 })
               }
               <div>
