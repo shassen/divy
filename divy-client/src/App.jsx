@@ -14,6 +14,7 @@ import Profile from './components/Profile';
 import NewTxnPage from './components/NewTxnPage';
 import PendingApproval from './components/PendingApproval';
 import EditTxnPage from './components/EditTxnPage';
+import Register from './components/Register';
 import './App.css';
 
 // const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3000'
@@ -69,12 +70,14 @@ class App extends Component {
   showRegisterForm() {
     this.setState({
       isRegister: true,
+      currentView: 'Register'
     })
   }
 
-  register() {
+  register(data) {
+    console.log(data);
     const url = `${BASE_URL}/users`
-    const body = { "user": { "email": this.state.email, "password": this.state.password } }
+    const body = { "user": { "first_name": `${data.first_name}`, "last_name": `${data.last_name}`, "username": `${data.username}`, "wallet": `${data.wallet}`, "email": `${data.email}`, "password": `${data.password}`, "passowrd_confirmation": `${data.passowrd_confirmation}`, "admin": true } }
     const init = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -85,7 +88,7 @@ class App extends Component {
       .then(res => res.json())
       .then(this.setState({
         isRegister: false,
-
+        currentView: 'Login'
       }))
       .catch(err => err.message)
   }
@@ -144,6 +147,7 @@ class App extends Component {
                     password={this.state.password}
                     isRegister={this.state.isRegister}
                     register={this.register}
+                    showRegisterForm={this.showRegisterForm}
                     />;
       case 'Homepage':
       return <Homepage  username={this.state.username}
@@ -165,6 +169,8 @@ class App extends Component {
       case 'EditTxnPage':
       return <EditTxnPage oneTxn={this.state.oneTxn}
                           handleEditTransaction={this.handleEditTransaction}/>;
+      case 'Register':
+      return <Register register={this.register}/>;
     }
   }
   //---------------------- END VIEW PAGES --------------------//

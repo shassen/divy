@@ -26,7 +26,7 @@ function Login(props) {
             />
         </form>
         <br />
-        <button className="button is-primary is-hovered is-small" onClick={props.register}>Register</button> | <button className="button is-primary is-small is-hovered" onClick={props.login}>Login</button>
+        <button className="button is-primary is-hovered is-small" onClick={props.showRegisterForm}>Register</button> | <button className="button is-primary is-small is-hovered" onClick={props.login}>Login</button>
       </div>
     </div>  
   )

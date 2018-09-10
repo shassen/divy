@@ -4,7 +4,6 @@ class TransactionsController < ApplicationController
 
     # INDEX users/:id/transactions - show all transactions for user
     def index
-        
         # puts current_user.inspect
         @txns = current_user.transactions
         # @txns = TransactionUser.where(user_id: params[:user_id])
