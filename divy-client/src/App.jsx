@@ -85,7 +85,7 @@ class App extends Component {
       .then(res => res.json())
       .then(this.setState({
         isRegister: false,
-
+        currentView: 'Login'
       }))
       .catch(err => err.message)
   }
