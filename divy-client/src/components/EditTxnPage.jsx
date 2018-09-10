@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 class EditTxnPage extends Component {
   constructor(props) {
-    console.log(props)
     super(props);
     this.state ={
       id: this.props.oneTxn.id,
@@ -30,7 +29,7 @@ class EditTxnPage extends Component {
 
   return (
     <div>
-      <p>It works</p>
+      <h3>Editing For: {this.props.oneTxn.location}</h3>
       <form onSubmit={this.handleSubmit}>
         <label></label>
         <input

@@ -5,7 +5,6 @@ import {
 
 class Homepage extends Component {
   constructor(props) {
-    console.log(props)
     super(props);
     this.state = {
       user: this.props.user,
@@ -14,12 +13,7 @@ class Homepage extends Component {
   }
 
   componentDidMount() {
-    const jwt = localStorage.getItem('jwt');
-    const init = {
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${jwt}`, 'Accept': 'application/json' },
-      mode: 'cors'
-    }
-    getTransactions(this.props.user.id, init)
+    getTransactions(this.props.user.id)
       .then(data => this.setState({
         txn: data.txn,
       }))
@@ -39,7 +33,7 @@ class Homepage extends Component {
           {
             txn.map(data => {
               return(
-              <div>
+              <div key={data.id}>
                 <h1 onClick={() => {
                   this.props.showEditForm(data)
                   }}>{data.location}
@@ -64,7 +58,6 @@ class Homepage extends Component {
       </div>
     )
   }
-  
 }
 
 export default Homepage

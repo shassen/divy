@@ -9,7 +9,7 @@ function Header(props) {
                     <div>
                         <h1 onClick={() => props.onClick(links[0])}>Divy</h1>
                         <h1 onClick={() => props.onClick(links[1])}>{props.user.username}</h1>
-                        <h3 onClick={() => props.onClick(links[2])}>Pending({})</h3>
+                        {/* <h3 onClick={() => props.onClick(links[2])}>Pending({})</h3> */}
                     </div>
                     :
                     <div>

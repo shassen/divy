@@ -1,7 +1,12 @@
 const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000'
 
 // Function: gets current users transactions from DB
-function getTransactions(id, init) {
+function getTransactions(id) {
+    const jwt = localStorage.getItem('jwt');
+    const init = {
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${jwt}`, 'Accept': 'application/json' },
+      mode: 'cors'
+    } 
     return fetch(`${BASE_URL}/users/${id}/transactions`, init)
         .then(resp => resp.json())
 }

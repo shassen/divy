@@ -99,7 +99,7 @@ class App extends Component {
       .then(res => res.json())
       .then(res => localStorage.setItem("jwt", res.jwt))
       .then(this.findUserId())
-      .then(() => this.setState({
+      .then(data => this.setState({
         isLoggedIn: true,
         currentView: 'Homepage',
       }))
@@ -195,9 +195,10 @@ class App extends Component {
       body: JSON.stringify(body)
     }
     editTransaction(user_id, transaction_id, init)
-      .then(this.setState({
+      .then(data => {
+        this.setState({
           currentView: 'Homepage',
-      }))
+      })})
   }
 
   // Function: handles the creation of a new transaction for a user
@@ -212,15 +213,16 @@ class App extends Component {
       body: JSON.stringify(body)
     }
     createTransaction(user_id, init)
-      .then(this.setState({ 
-        currentView: 'HomePage',
-      }))
+      .then(data => {
+        this.setState({ 
+        currentView: 'Homepage',
+      })})
   }
 
   // Function: handles deleting a users transactions and the relationship with other users to that txn
   handleDelete(data) {
-    const user_id = this.state.user_id
-    const transaction_id = data.id
+    const user_id = this.state.user_id;
+    const transaction_id = data.id;
     const jwt = localStorage.getItem('jwt');
     const init = {
       method: 'DELETE',
@@ -228,8 +230,7 @@ class App extends Component {
       mode: 'cors'
     }
     deleteTransaction(user_id, transaction_id, init)
-      .then(this.setState({ currentView: 'Profile' }))
-      
+      .then(this.setState({ currentView: 'Homepage' }))
   }
    //-------------------- END CRUD FUNCTIONS ------------------//
 
