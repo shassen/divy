@@ -93,9 +93,9 @@ these two functions caused me many headaches throughout this project. I needed t
 8. Bcrypt v3.1.12 - PW hashing
 9. Google Fonts
 
-## Special Thanks:
+## Special Thanks To:
 
-@Mimi K & @John M for all the help during this project. I'm certain I wouldn't have finished without it. 
+@Mimi K, @John M & @Jay-z for all the help during this project. I'm certain I wouldn't have finished without it. 
 
 ## Created By:
 
