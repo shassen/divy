@@ -43,7 +43,7 @@ class Homepage extends Component {
                   })
                 }
                 <div>
-                <button class="button is-primary is-small" onClick={() => {
+                <button className="button is-primary is-small" onClick={() => {
                   this.props.handleDelete(data)
                 }}>Delete Transaction</button>
                 </div>
