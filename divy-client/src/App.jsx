@@ -58,7 +58,9 @@ class App extends Component {
     getUser(userId)
       .then(data => this.setState({ 
         user: data,
-        user_id: data.id
+        user_id: data.id,
+        currentView: 'Homepage',
+        isLoggedIn: true
       }))
   }
 
@@ -99,10 +101,10 @@ class App extends Component {
       .then(res => res.json())
       .then(res => localStorage.setItem("jwt", res.jwt))
       .then(this.findUserId())
-      .then(data => this.setState({
-        isLoggedIn: true,
-        currentView: 'Homepage',
-      }))
+      // .then(() => this.setState({
+      //   isLoggedIn: true,
+      //   currentView: 'Homepage',
+      // }))
       .catch(err => console.log(err))
   }
 

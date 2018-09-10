@@ -4,7 +4,8 @@ import React from 'react';
 // Refernece from Jay-Z Auth lesson in rails
 function Login(props) {
     return (
-    <div className="login-form">
+    <div className="columns is-centered">
+      <div className="column is-one-fifth">
         <form>
             <label htmlFor="email" className="label">Email: </label>
             <input className="input is-rounded is-hovered"
@@ -26,6 +27,7 @@ function Login(props) {
         </form>
         <br />
         <button className="button is-primary is-hovered is-small" onClick={props.register}>Register</button> | <button className="button is-primary is-small is-hovered" onClick={props.login}>Login</button>
+      </div>
     </div>  
   )
 }
