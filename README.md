@@ -39,7 +39,36 @@ Another great feature of Divy is the ability to create groups. Each user in a gr
 
 ## Code Snippet:
 
-`const test = 5`
+`  findUserId() {
+    const jwt = localStorage.getItem('jwt')
+    const decoded = jwtDecode(jwt)
+    const userId = decoded.sub
+    getUser(userId)
+      .then(data => this.setState({ 
+        user: data,
+        user_id: data.id
+      }))
+  }
+
+  login() {
+    const url = `${BASE_URL}/user_token`;
+    const body = { "auth": { "email": this.state.email, "password": this.state.password } }
+    const init = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      mode: 'cors',
+      body: JSON.stringify(body),
+    }
+    fetch(url, init)
+      .then(res => res.json())
+      .then(res => localStorage.setItem("jwt", res.jwt))
+      .then(this.findUserId())
+      .then(data => this.setState({
+        isLoggedIn: true,
+        currentView: 'Homepage',
+      }))
+      .catch(err => console.log(err))
+  }`
 
 ## Technologies:
 
