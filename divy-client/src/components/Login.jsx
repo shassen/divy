@@ -6,26 +6,26 @@ function Login(props) {
     return (
     <div className="login-form">
         <form>
-            <label htmlFor="email">Email: </label>
-            <br />
-            <input
+            <label htmlFor="email" className="label">Email: </label>
+            <input className="input is-rounded is-hovered"
                 name="email"
                 onChange={props.onChange}
                 value={props.email.value}
                 type="email"
+                placeholder="Email"
             />
             <br /><br />
-            <label htmlFor="password">Password:</label>
-            <br />
-            <input
+            <label htmlFor="password" className="label">Password:</label>
+            <input className="input is-rounded is-hovered"
                 name="password"
                 onChange={props.onChange}
                 value={props.password.value}
                 type="password"
+                placeholder="Password"
             />
         </form>
         <br />
-        <button onClick={props.register}>Register</button> | <button onClick={props.login}>Login</button>
+        <button className="button is-primary is-hovered is-small" onClick={props.register}>Register</button> | <button className="button is-primary is-small is-hovered" onClick={props.login}>Login</button>
     </div>  
   )
 }

@@ -1,6 +1,6 @@
 class TransactionsController < ApplicationController
     before_action :authenticate_user, only: [:show, :create, :update, :destroy] 
-    before_action :set_user, only: [:index, :show, :update, :destroy]    
+    before_action :set_user, only: [:index, :show, :update, :destroy]
 
     # INDEX users/:id/transactions - show all transactions for user
     def index

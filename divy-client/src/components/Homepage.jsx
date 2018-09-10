@@ -7,35 +7,56 @@ class Homepage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_id: this.props.id,
-      email: this.props.email,
-      users: [],
+      user: this.props.user,
+      txn: [],
     }
   }
 
   componentDidMount() {
-    const jwt = localStorage.getItem('jwt');
-    const init = {
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${jwt}`, 'Accept': 'application/json' },
-      mode: 'cors'
-    }
-    getTransactions(this.props.user.id, init)
+    getTransactions(this.props.user.id)
       .then(data => this.setState({
-        txn: data.txn
+        txn: data.txn,
       }))
   }
 
-  // data => this.setState({ user: data })
   render() {
+    const { txn } = this.state
 
     return (
-      <div className="App">
-      <h1>Welcome {this.props.user.username}</h1> 
-        {/* <button onClick={}></button> */}
+      <div className="App" className="content">
+        <h2>Your Transactions:</h2><br />
+        <div>
+          {
+            txn.map(data => {
+              return(
+              <div>
+              <div key={data.id} className="column">
+                <h3 onClick={() => {
+                  this.props.showEditForm(data)
+                  }}>{data.location}
+                </h3>
+                <p>Description: {data.description}</p>
+                <p>$ {data.amount}</p>
+                {
+                  data.users.map(user => {
+                    return <p>User:<span> {user.username} </span></p>
+                  })
+                }
+                <div>
+                <button class="button is-primary is-small" onClick={() => {
+                  this.props.handleDelete(data)
+                }}>Delete Transaction</button>
+                </div>
+                </div>
+                </div>
+              )
+            })
+          }
+        </div>
       </div>
     )
   }
-
 }
 
 export default Homepage
+

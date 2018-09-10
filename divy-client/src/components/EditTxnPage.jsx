@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 
-class NewTxnPage extends Component {
+class EditTxnPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      amount: null,
-      location: '',
-      description: '',
+    this.state ={
+      id: this.props.oneTxn.id,
+      amount: this.props.oneTxn.amount,
+      location: this.props.oneTxn.location,
+      description: this.props.oneTxn.description,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -14,7 +15,7 @@ class NewTxnPage extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.handleNewTransaction(this.state)
+    this.props.handleEditTransaction(this.state)
   }
 
   handleChange(e) {
@@ -25,9 +26,10 @@ class NewTxnPage extends Component {
   }
 
   render() {
-    return (
-      <div className="control">
-      <h3>New Transaction:</h3>
+
+  return (
+    <div className="control">
+      <h3>Editing For: {this.props.oneTxn.location}</h3>
       <form onSubmit={this.handleSubmit}>
         <label></label>
         <input className="input is-hovered"
@@ -35,27 +37,27 @@ class NewTxnPage extends Component {
           name='amount'
           value={this.state.amount}
           onChange={this.handleChange}
-          placeholder="enter amount here"
+          placeholder={this.props.oneTxn.amount}
         /> <br />
         <input className="input is-hovered"
           type='text'
           name='location'
           value={this.state.location}
           onChange={this.handleChange}
-          placeholder="enter location here"
+          placeholder={this.props.oneTxn.location}
         /> <br />
         <textarea className="textarea"
           type='text'
           name='description'
           value={this.state.description}
           onChange={this.handleChange}
-          placeholder="enter description here"
+          placeholder={this.props.oneTxn.description}
         /> <br />
         <button className="button is-primary is-small" type='submit'>Submit</button>
       </form>
     </div>
-    )
+  )
   }
 }
 
-export default NewTxnPage
+export default EditTxnPage
