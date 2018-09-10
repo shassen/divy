@@ -39,7 +39,8 @@ Another great feature of Divy is the ability to create groups. Each user in a gr
 
 ## Code Snippet:
 
-`  findUserId() {
+``` 
+    findUserId() {
     const jwt = localStorage.getItem('jwt')
     const decoded = jwtDecode(jwt)
     const userId = decoded.sub
@@ -68,7 +69,8 @@ Another great feature of Divy is the ability to create groups. Each user in a gr
         currentView: 'Homepage',
       }))
       .catch(err => console.log(err))
-  }`
+  }
+  ```
 
 ## Technologies:
 
