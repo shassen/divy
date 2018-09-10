@@ -1,4 +1,6 @@
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000'
+// const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3000'
+const BASE_URL = process.env.REACT_APP_BASE_URL
+
 
 // Function: gets current users transactions from DB
 function getTransactions(id) {
