@@ -26,32 +26,32 @@ class NewTxnPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="control">
       <h3>New Transaction:</h3>
       <form onSubmit={this.handleSubmit}>
         <label></label>
-        <input
+        <input className="input is-hovered"
           type='integer'
           name='amount'
           value={this.state.amount}
           onChange={this.handleChange}
           placeholder="enter amount here"
         /> <br />
-        <input
+        <input className="input is-hovered"
           type='text'
           name='location'
           value={this.state.location}
           onChange={this.handleChange}
           placeholder="enter location here"
         /> <br />
-        <textarea
+        <textarea className="textarea"
           type='text'
           name='description'
           value={this.state.description}
           onChange={this.handleChange}
           placeholder="enter description here"
         /> <br />
-        <button type='submit'>Submit</button>
+        <button className="button is-primary is-small" type='submit'>Submit</button>
       </form>
     </div>
     )

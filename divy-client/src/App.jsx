@@ -147,13 +147,13 @@ class App extends Component {
                         id={this.state.user_id}
                         user={this.state.user}
                         showEditForm={this.showEditForm}
-                        showNewTxnForm={this.showNewTxnForm}
                         handleDelete={this.handleDelete}/>;
       // case 'OptionPage':
       // return <OptionPage onClick={this.handleView}
       //                    />;
       case 'Profile':
-      return <Profile user={this.state.user}/>;
+      return <Profile user={this.state.user}
+                      showNewTxnForm={this.showNewTxnForm}/>;
       case 'NewTxnPage':
       return <NewTxnPage handleNewTransaction={this.handleNewTransaction}/>;
       case 'PendingApproval':

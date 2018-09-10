@@ -28,32 +28,32 @@ class EditTxnPage extends Component {
   render() {
 
   return (
-    <div>
+    <div className="control">
       <h3>Editing For: {this.props.oneTxn.location}</h3>
       <form onSubmit={this.handleSubmit}>
         <label></label>
-        <input
+        <input className="input is-hovered"
           type='integer'
           name='amount'
           value={this.state.amount}
           onChange={this.handleChange}
           placeholder={this.props.oneTxn.amount}
         /> <br />
-        <input
+        <input className="input is-hovered"
           type='text'
           name='location'
           value={this.state.location}
           onChange={this.handleChange}
           placeholder={this.props.oneTxn.location}
         /> <br />
-        <textarea
+        <textarea className="textarea"
           type='text'
           name='description'
           value={this.state.description}
           onChange={this.handleChange}
           placeholder={this.props.oneTxn.description}
         /> <br />
-        <button type='submit'>Submit</button>
+        <button className="button is-primary is-small" type='submit'>Submit</button>
       </form>
     </div>
   )
