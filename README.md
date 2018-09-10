@@ -91,6 +91,7 @@ these two functions caused me many headaches throughout this project. I needed t
 6. Jwt-decode v2.2.0 - Jwt token decoding
 7. Knock v2.1.1 - Back-end Auth
 8. Bcrypt v3.1.12 - PW hashing
+9. Google Fonts
 
 ## Special Thanks:
 
