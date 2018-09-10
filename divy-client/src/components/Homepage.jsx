@@ -5,6 +5,7 @@ import {
 
 class Homepage extends Component {
   constructor(props) {
+    console.log(props)
     super(props);
     this.state = {
       user: this.props.user,
@@ -30,34 +31,36 @@ class Homepage extends Component {
     return (
       <div className="App">
 
-      <p>Wallet Balance: $ {this.props.user.wallet}</p>
-      
-      <div>
-        {
-          txn.map(data => {
-            return(
-            <div>
-              <h1 onClick={() => {
-                this.props.handleEditTransaction(data)
-                }}>{data.location}
-              </h1>
-              <p>Description: {data.description}</p>
-              <p>$ {data.amount}</p>
-              {
-                data.users.map(user => {
-                  return <p>Users:<span> {user.username} </span></p>
-                })
-              }
+        <p>Wallet Balance: $ {this.props.user.wallet}</p>
+        <button onClick={() => {
+          this.props.showNewTxnForm()
+        }}>Create New Transaction</button>
+        <div>
+          {
+            txn.map(data => {
+              return(
               <div>
-              <button onClick={() => {
-                this.props.handleDelete(data)
-              }}>Delete Transaction</button>
-              </div>
-              </div>
-            )
-          })
-        }
-      </div>
+                <h1 onClick={() => {
+                  this.props.showEditForm(data)
+                  }}>{data.location}
+                </h1>
+                <p>Description: {data.description}</p>
+                <p>$ {data.amount}</p>
+                {
+                  data.users.map(user => {
+                    return <p>Users:<span> {user.username} </span></p>
+                  })
+                }
+                <div>
+                <button onClick={() => {
+                  this.props.handleDelete(data)
+                }}>Delete Transaction</button>
+                </div>
+                </div>
+              )
+            })
+          }
+        </div>
       </div>
     )
   }

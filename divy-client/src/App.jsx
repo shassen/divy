@@ -4,7 +4,8 @@ import {
   getTransactions,
   getUser,
   editTransaction,
-  deleteTransaction } from './services/api';
+  deleteTransaction,
+  createTransaction } from './services/api';
 import Header from './components/Header';
 import Login from './components/Login';
 import Homepage from './components/Homepage';
@@ -32,7 +33,6 @@ class App extends Component {
       isRegister: false,
     })
     this.logout = this.logout.bind(this);
-    // this.isLoggedIn = this.isLoggedIn.bind(this);
     this.showRegisterForm = this.showRegisterForm.bind(this);
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
@@ -41,11 +41,13 @@ class App extends Component {
     this.handleView = this.handleView.bind(this);
     this.handleEditTransaction = this.handleEditTransaction.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.showEditForm = this.showEditForm.bind(this);
+    this.showNewTxnForm = this.showNewTxnForm.bind(this);
+    this.handleNewTransaction = this.handleNewTransaction.bind(this);
   }
   
 
-  //------------------------- AUTH Functions ------------------------//
+  //------------------------- AUTH Functions -------------------//
   // references:
   // https://medium.com/@nick.hartunian/knock-jwt-auth-for-rails-api-create-react-app-6765192e295a
   // JZ react-rails-token-auth repo
@@ -125,14 +127,7 @@ class App extends Component {
   }
   //----------------------- END OF AUTH ----------------------//
 
-  //-------------------- BEGIN CRUD FUNCTIONS ----------------//
-
-
-
-
-  //-------------------- END CRUD FUNCTIONS ------------------//
-
-
+  //------------------- BEGIN VIEW PAGES ---------------------//
   determineWhichToRender() {
     const { currentView } = this.state;
 
@@ -151,7 +146,8 @@ class App extends Component {
                         email={this.state.email} 
                         id={this.state.user_id}
                         user={this.state.user}
-                        handleEditTransaction={this.handleEditTransaction}
+                        showEditForm={this.showEditForm}
+                        showNewTxnForm={this.showNewTxnForm}
                         handleDelete={this.handleDelete}/>;
       // case 'OptionPage':
       // return <OptionPage onClick={this.handleView}
@@ -159,42 +155,69 @@ class App extends Component {
       case 'Profile':
       return <Profile user={this.state.user}/>;
       case 'NewTxnPage':
-      return <NewTxnPage />;
+      return <NewTxnPage handleNewTransaction={this.handleNewTransaction}/>;
       case 'PendingApproval':
       return <PendingApproval />;
       case 'EditTxnPage':
-      return <EditTxnPage oneTxn={this.state.oneTxn}/>;
+      return <EditTxnPage oneTxn={this.state.oneTxn}
+                          handleEditTransaction={this.handleEditTransaction}/>;
     }
   }
+  //---------------------- END VIEW PAGES --------------------//
 
-  handleChange(e) {
-    e.preventDefault()
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    })
-  }
 
-  // handleSubmit(e) {
-    
-  // }
-
-  handleView(links) {
-    this.setState({
-      currentView: links,
-    })
-  }
-
-  handleEditTransaction(data) {
-    // const user_id = this.state.user_id
-    // const transaction_id = data.id
-    // console.log(user_id, transaction_id)
+  //-------------------- BEGIN CRUD FUNCTIONS ----------------//
+  // Function: shows a form to edit an existing transaction
+  showEditForm(data) {
     this.setState({
       currentView: 'EditTxnPage',
       oneTxn: data,
     })
   }
 
+  // Function: shows a form for a new transaction
+  showNewTxnForm() {
+    this.setState({
+      currentView: 'NewTxnPage'
+    })
+  }
+
+  // Function: handles the edit of a transaction for all users associated with that txn
+  handleEditTransaction(data) {
+    const user_id = this.state.user_id
+    const transaction_id = data.id
+    const body = { 'data': { 'type': 'transaction', 'attributes': { 'amount': `${data.amount}`, 'location': `${data.location}`, 'description': `${data.description}`} }}
+    const jwt = localStorage.getItem('jwt');
+    const init = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${jwt}`, 'Accept': 'application/json' },
+      mode: 'cors',
+      body: JSON.stringify(body)
+    }
+    editTransaction(user_id, transaction_id, init)
+      .then(this.setState({
+          currentView: 'Homepage',
+      }))
+  }
+
+  // Function: handles the creation of a new transaction for a user
+  handleNewTransaction(data) {
+    const user_id = this.state.user_id
+    const body = { 'data': { 'type': 'transaction', 'attributes': { 'amount': `${data.amount}`, 'location': `${data.location}`, 'description': `${data.description}`} }}
+    const jwt = localStorage.getItem('jwt');
+    const init = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${jwt}`, 'Accept': 'application/json' },
+      mode: 'cors',
+      body: JSON.stringify(body)
+    }
+    createTransaction(user_id, init)
+      .then(this.setState({ 
+        currentView: 'HomePage',
+      }))
+  }
+
+  // Function: handles deleting a users transactions and the relationship with other users to that txn
   handleDelete(data) {
     const user_id = this.state.user_id
     const transaction_id = data.id
@@ -207,6 +230,23 @@ class App extends Component {
     deleteTransaction(user_id, transaction_id, init)
       .then(this.setState({ currentView: 'Profile' }))
       
+  }
+   //-------------------- END CRUD FUNCTIONS ------------------//
+
+  // Function: handles view handling in header
+  handleView(links) {
+    this.setState({
+      currentView: links,
+    })
+  }
+
+  // Function: handles login on landing page
+  handleChange(e) {
+    e.preventDefault()
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    })
   }
 
   render() {

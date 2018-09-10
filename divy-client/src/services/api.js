@@ -5,6 +5,13 @@ function getTransactions(id, init) {
     return fetch(`${BASE_URL}/users/${id}/transactions`, init)
         .then(resp => resp.json())
 }
+
+// Function: creates a transaction for a user
+function createTransaction(user_id, init) {
+    return fetch(`${BASE_URL}/users/${user_id}/transactions`, init)
+        .then(resp => resp.json())
+}
+
 // Function: edits a users transaction
 function editTransaction(user_id, transaction_id, init) {
     return fetch(`${BASE_URL}/users/${user_id}/transactions/${transaction_id}`, init)
@@ -27,6 +34,7 @@ function deleteTransaction(user_id, transaction_id, init) {
 export {
     getTransactions,
     editTransaction,
+    createTransaction,
     getUser,
     deleteTransaction,
 }
