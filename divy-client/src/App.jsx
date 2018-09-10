@@ -73,8 +73,9 @@ class App extends Component {
   }
 
   register(data) {
+    console.log(data);
     const url = `${BASE_URL}/users`
-    const body = { "user": { "first_name": ``, "last_name": ``, "username": ``, "wallet": ``, "email": this.state.email, "password": this.state.password, "passowrd_confirmation": ``, "admin": true } }
+    const body = { "user": { "first_name": `${data.first_name}`, "last_name": `${data.last_name}`, "username": `${data.username}`, "wallet": `${data.wallet}`, "email": `${data.email}`, "password": `${data.password}`, "passowrd_confirmation": `${data.passowrd_confirmation}`, "admin": true } }
     const init = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -167,8 +168,7 @@ class App extends Component {
       return <EditTxnPage oneTxn={this.state.oneTxn}
                           handleEditTransaction={this.handleEditTransaction}/>;
       case 'Register':
-      return <Register register={this.register}
-                       showRegisterForm={this.showRegisterForm}/>;
+      return <Register register={this.register}/>;
     }
   }
   //---------------------- END VIEW PAGES --------------------//

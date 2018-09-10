@@ -94,9 +94,8 @@ class Register extends Component {
                 placeholder="Confirm password"
             />
             <br /><br />
+            <button className="button is-primary is-hovered is-small" type="submit">Register</button>
         </form>
-        <br />
-        <button className="button is-primary is-hovered is-small" type="submit">Register</button>
       </div>
     </div>  
     )
