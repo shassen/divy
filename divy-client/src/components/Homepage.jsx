@@ -24,17 +24,17 @@ class Homepage extends Component {
 
     return (
       <div className="App" className="content">
-        <h1>Your Transactions:</h1><br />
+        <h2>Your Transactions:</h2><br />
         <div>
           {
             txn.map(data => {
               return(
-              <div className="columns">
+              <div>
               <div key={data.id} className="column">
-                <h1 onClick={() => {
+                <h3 onClick={() => {
                   this.props.showEditForm(data)
                   }}>{data.location}
-                </h1>
+                </h3>
                 <p>Description: {data.description}</p>
                 <p>$ {data.amount}</p>
                 {

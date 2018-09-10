@@ -1,8 +1,9 @@
 .App {
   text-align: center;
   font-family: 'Crete Round', serif;
-  /* margin: 20px 0 */
+  margin: 10px 50px
 }
 .navbar-item {
-  text-align: center
+  margin: 0 5px;
+  padding: 5px
 }
