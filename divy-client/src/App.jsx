@@ -17,8 +17,8 @@ import EditTxnPage from './components/EditTxnPage';
 import Register from './components/Register';
 import './App.css';
 
-const BASE_URL = 'http://localhost:3000'
-// const BASE_URL = process.env.REACT_APP_BASE_URL
+// const BASE_URL = 'http://localhost:3000'
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
 
 class App extends Component {
