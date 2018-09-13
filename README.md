@@ -37,6 +37,10 @@ Another great feature of Divy is the ability to create groups. Each user in a gr
 4. Users can create groups with other users and add to a pool of Divy Dollars for shared purchases
 5. Users can edit and delete groups
 
+Somethings to note before interacting with webpage:
+1. Delete works, just navigate to the username button and then back to "Divy". (working on a fix)
+2. You CANNOT add users to a transaction in the FE, the functionality works on the BE through postman
+
 ## Setup:
 
 1. Fork, clone and open the code in your text editor.
