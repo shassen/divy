@@ -45,7 +45,7 @@ Another great feature of Divy is the ability to create groups. Each user in a gr
 4. cd into divy-app, run rails s to start your BE server.
 5. cd into divy-client, run yarn start (select Y when prompted) to render your FE in the browser.
 6. login with Email: testy@test.com, PW: test (if you receive an error "Invalid token", just refresh and click login again...it'll work)
-7. Create an account and start messing around.
+7. You can also create an account and mess around if you so choose.
 
 ## Code Snippet:
 
